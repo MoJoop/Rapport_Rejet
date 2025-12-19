@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapports de Coherence - EHCVM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c5282;
+            --secondary-color: #4299e1;
+            --bg-light: #f7fafc;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h5 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .date-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            border: none;
+            background: var(--bg-light);
+            border-radius: 8px;
+            transition: all 0.3s;
+            color: #333;
+        }
+
+        .date-btn:hover, .date-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .supervisor-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 8px 12px;
+            margin-bottom: 3px;
+            border: none;
+            background: transparent;
+            border-radius: 5px;
+            transition: all 0.2s;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .supervisor-btn:hover, .supervisor-btn.active {
+            background: #e2e8f0;
+            color: var(--primary-color);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            min-height: 70vh;
+        }
+
+        .file-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .file-card:hover {
+            border-color: var(--secondary-color);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .file-card.selected {
+            border-color: var(--primary-color);
+            background: #ebf8ff;
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #333;
+            word-break: break-all;
+        }
+
+        .file-info {
+            font-size: 0.85rem;
+            color: #718096;
+        }
+
+        .action-bar {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-download {
+            background: var(--primary-color);
+            border: none;
+            padding: 10px 25px;
+            font-weight: 500;
+        }
+
+        .btn-download:hover {
+            background: var(--secondary-color);
+        }
+
+        .search-box {
+            border-radius: 25px;
+            padding-left: 20px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .search-box:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .breadcrumb-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .select-all-container {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                Rapports de Coherence EHCVM
+            </a>
+            <span class="navbar-text text-white">
+                <i class="bi bi-calendar3 me-1"></i>
+                <span id="currentDate"></span>
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <div class="sidebar mb-4">
+                    <h5><i class="bi bi-calendar-week me-2"></i>Dates</h5>
+                    <div id="datesList" class="mb-3">
+                        <div class="loading">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Chargement...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar" id="supervisorsSidebar" style="display: none;">
+                    <h5><i class="bi bi-people me-2"></i>Superviseurs</h5>
+                    <div id="supervisorsList"></div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-card mt-4">
+                    <div class="stats-number" id="totalFiles">0</div>
+                    <div>Rapports disponibles</div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9 col-md-8">
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb" id="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" onclick="goHome()">Accueil</a></li>
+                    </ol>
+                </nav>
+
+                <!-- Action Bar -->
+                <div class="action-bar d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-3 mb-2 mb-md-0">
+                        <input type="text" class="form-control search-box" id="searchInput"
+                               placeholder="Rechercher un rapport..." style="width: 300px;">
+                    </div>
+                    <div class="d-flex gap-2">
+                        <span class="text-muted me-2" id="selectedCount">0 selectionne(s)</span>
+                        <button class="btn btn-download btn-primary" id="downloadBtn" onclick="downloadSelected()" disabled>
+                            <i class="bi bi-download me-2"></i>Telecharger
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Files Container -->
+                <div class="main-content">
+                    <div class="select-all-container" id="selectAllContainer" style="display: none;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                            <label class="form-check-label" for="selectAll">
+                                Tout selectionner
+                            </label>
+                        </div>
+                    </div>
+                    <div id="filesContainer">
+                        <div class="empty-state">
+                            <i class="bi bi-folder2-open"></i>
+                            <h4>Bienvenue</h4>
+                            <p>Selectionnez une date pour voir les rapports disponibles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-4 text-muted">
+        <small>EHCVM - Enquete Harmonisee sur les Conditions de Vie des Menages</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Configuration - Base URL pour GitHub Pages
+        const REPO_NAME = 'Rapport_Rejet';
+        const GITHUB_USER = 'MoJoop';
+        const BASE_URL = `https://${GITHUB_USER}.github.io/${REPO_NAME}`;
+        const RAW_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main`;
+
+        // State
+        let currentDate = null;
+        let currentSupervisor = null;
+        let allFiles = [];
+        let selectedFiles = new Set();
+        let filesData = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
+            loadDates();
+
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', filterFiles);
+        });
+
+        // Load available dates from files.json
+        async function loadDates() {
+            try {
+                const response = await fetch('files.json');
+                if (!response.ok) throw new Error('Fichier non trouve');
+
+                filesData = await response.json();
+                const dates = Object.keys(filesData).sort().reverse();
+
+                const datesList = document.getElementById('datesList');
+
+                if (dates.length === 0) {
+                    datesList.innerHTML = '<p class="text-muted">Aucune date disponible</p>';
+                    return;
+                }
+
+                datesList.innerHTML = dates.map(date => `
+                    <button class="date-btn" onclick="selectDate('${date}')" id="date-${date}">
+                        <i class="bi bi-calendar3 me-2"></i>${date}
+                    </button>
+                `).join('');
+
+                // Update total files count
+                let total = 0;
+                Object.values(filesData).forEach(supervisors => {
+                    Object.values(supervisors).forEach(files => {
+                        total += files.length;
+                    });
+                });
+                document.getElementById('totalFiles').textContent = total;
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('datesList').innerHTML = `
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Impossible de charger les donnees. Verifiez que files.json existe.
+                    </div>
+                `;
+            }
+        }
+
+        // Select a date
+        function selectDate(date) {
+            currentDate = date;
+            currentSupervisor = null;
+
+            // Update UI
+            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`date-${date}`).classList.add('active');
+
+            // Show supervisors
+            const supervisors = Object.keys(filesData[date] || {}).sort();
+            const supervisorsSidebar = document.getElementById('supervisorsSidebar');
+            const supervisorsList = document.getElementById('supervisorsList');
+
+            if (supervisors.length > 0) {
+                supervisorsSidebar.style.display = 'block';
+                supervisorsList.innerHTML = `
+                    <button class="supervisor-btn active" onclick="selectSupervisor(null)" id="sup-all">
+                        <i class="bi bi-grid me-2"></i>Tous (${getTotalFilesForDate(date)})
+                    </button>
+                ` + supervisors.map(sup => `
+                    <button class="supervisor-btn" onclick="selectSupervisor('${sup}')" id="sup-${sup}">
+                        <i class="bi bi-person me-2"></i>${sup} (${filesData[date][sup].length})
+                    </button>
+                `).join('');
+            }
+
+            // Update breadcrumb
+            updateBreadcrumb([date]);
+
+            // Show all files for this date
+            showFiles(date, null);
+        }
+
+        // Get total files for a date
+        function getTotalFilesForDate(date) {
+            let total = 0;
+            Object.values(filesData[date] || {}).forEach(files => {
+                total += files.length;
+            });
+            return total;
+        }
+
+        // Select a supervisor
+        function selectSupervisor(supervisor) {
+            currentSupervisor = supervisor;
+
+            // Update UI
+            document.querySelectorAll('.supervisor-btn').forEach(btn => btn.classList.remove('active'));
+            if (supervisor) {
+                document.getElementById(`sup-${supervisor}`).classList.add('active');
+                updateBreadcrumb([currentDate, supervisor]);
+            } else {
+                document.getElementById('sup-all').classList.add('active');
+                updateBreadcrumb([currentDate]);
+            }
+
+            showFiles(currentDate, supervisor);
+        }
+
+        // Show files
+        function showFiles(date, supervisor) {
+            const container = document.getElementById('filesContainer');
+            const selectAllContainer = document.getElementById('selectAllContainer');
+
+            allFiles = [];
+
+            if (supervisor) {
+                // Files for specific supervisor
+                const files = filesData[date][supervisor] || [];
+                allFiles = files.map(f => ({ ...f, supervisor }));
+            } else {
+                // All files for the date
+                Object.entries(filesData[date] || {}).forEach(([sup, files]) => {
+                    files.forEach(f => {
+                        allFiles.push({ ...f, supervisor: sup });
+                    });
+                });
+            }
+
+            selectedFiles.clear();
+            updateSelectedCount();
+
+            if (allFiles.length === 0) {
+                selectAllContainer.style.display = 'none';
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-folder2-open"></i>
+                        <h4>Aucun rapport</h4>
+                        <p>Aucun rapport disponible pour cette selection</p>
+                    </div>
+                `;
+                return;
+            }
+
+            selectAllContainer.style.display = 'block';
+            document.getElementById('selectAll').checked = false;
+
+            renderFiles(allFiles);
+        }
+
+        // Render files
+        function renderFiles(files) {
+            const container = document.getElementById('filesContainer');
+
+            container.innerHTML = `
+                <div class="row">
+                    ${files.map((file, index) => `
+                        <div class="col-md-6 col-lg-4 file-item" data-name="${file.name.toLowerCase()}">
+                            <div class="file-card ${selectedFiles.has(file.path) ? 'selected' : ''}"
+                                 onclick="toggleFile('${file.path}', ${index})">
+                                <div class="d-flex align-items-start">
+                                    <div class="form-check me-3">
+                                        <input class="form-check-input" type="checkbox"
+                                               ${selectedFiles.has(file.path) ? 'checked' : ''}
+                                               onclick="event.stopPropagation(); toggleFile('${file.path}', ${index})">
+                                    </div>
+                                    <div class="file-icon me-3">
+                                        <i class="bi bi-file-earmark-word"></i>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="file-name">${file.name}</div>
+                                        <div class="file-info">
+                                            <i class="bi bi-person me-1"></i>${file.supervisor}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Toggle file selection
+        function toggleFile(path, index) {
+            if (selectedFiles.has(path)) {
+                selectedFiles.delete(path);
+            } else {
+                selectedFiles.add(path);
+            }
+
+            // Update UI
+            const cards = document.querySelectorAll('.file-card');
+            cards[index].classList.toggle('selected');
+            cards[index].querySelector('input').checked = selectedFiles.has(path);
+
+            updateSelectedCount();
+        }
+
+        // Toggle select all
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll').checked;
+
+            if (selectAll) {
+                allFiles.forEach(f => selectedFiles.add(f.path));
+            } else {
+                selectedFiles.clear();
+            }
+
+            // Update UI
+            document.querySelectorAll('.file-card').forEach((card, i) => {
+                card.classList.toggle('selected', selectAll);
+                card.querySelector('input').checked = selectAll;
+            });
+
+            updateSelectedCount();
+        }
+
+        // Update selected count
+        function updateSelectedCount() {
+            const count = selectedFiles.size;
+            document.getElementById('selectedCount').textContent = `${count} selectionne(s)`;
+            document.getElementById('downloadBtn').disabled = count === 0;
+        }
+
+        // Download selected files
+        function downloadSelected() {
+            if (selectedFiles.size === 0) return;
+
+            selectedFiles.forEach(path => {
+                const url = `${BASE_URL}/rapports/${path}`;
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = path.split('/').pop();
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        }
+
+        // Filter files by search
+        function filterFiles() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.file-item').forEach(item => {
+                const name = item.dataset.name;
+                item.style.display = name.includes(search) ? 'block' : 'none';
+            });
+        }
+
+        // Update breadcrumb
+        function updateBreadcrumb(items) {
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = `
+                <li class="breadcrumb-item"><a href="#" onclick="goHome()">Accueil</a></li>
+                ${items.map((item, i) =>
+                    i === items.length - 1
+                        ? `<li class="breadcrumb-item active">${item}</li>`
+                        : `<li class="breadcrumb-item"><a href="#" onclick="selectDate('${item}')">${item}</a></li>`
+                ).join('')}
+            `;
+        }
+
+        // Go home
+        function goHome() {
+            currentDate = null;
+            currentSupervisor = null;
+
+            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('supervisorsSidebar').style.display = 'none';
+            document.getElementById('selectAllContainer').style.display = 'none';
+            document.getElementById('breadcrumb').innerHTML = '<li class="breadcrumb-item active">Accueil</li>';
+
+            document.getElementById('filesContainer').innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-folder2-open"></i>
+                    <h4>Bienvenue</h4>
+                    <p>Selectionnez une date pour voir les rapports disponibles</p>
+                </div>
+            `;
+
+            selectedFiles.clear();
+            updateSelectedCount();
+        }
+    </script>
+</body>
+</html>
