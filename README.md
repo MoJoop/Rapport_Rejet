@@ -1,4 +1,6 @@
-# Rapports de Coherence EHCVM
+# Rapport_Rejet - Rapports de Coherence EHCVM
+
+Releve des Incoherences dans le questionnaire menage.
 
 Interface web pour consulter et telecharger les rapports de coherence de l'enquete EHCVM.
 
