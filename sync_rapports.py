@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Script de synchronisation des rapports vers le dossier web
-Genere le fichier files.json et copie les rapports Word
+Genere les fichiers files.json et files_issues.json et copie les rapports Word
 """
 
 import os
@@ -18,14 +18,24 @@ if sys.platform == 'win32':
 # CONFIGURATION
 # ============================================================================
 
-# Chemin source des rapports
-SOURCE_DIR = r"d:\Cq\gtCq\Dataout\Rapport_de_coherence_men"
-
 # Chemin du dossier web (ce dossier)
 WEB_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Dossier destination pour les rapports dans le projet web
-RAPPORTS_DIR = os.path.join(WEB_DIR, "rapports")
+# Configuration des deux types de rapports
+RAPPORTS_CONFIG = {
+    'coherence': {
+        'source_dir': r"d:\Cq\gtCq\Dataout\Rapport_de_coherence_men",
+        'dest_dir': os.path.join(WEB_DIR, "rapports"),
+        'json_file': "files.json",
+        'label': "Rapports de Coherence"
+    },
+    'issues': {
+        'source_dir': r"d:\Cq\gtCq\Dataout\Rapport_Issues",
+        'dest_dir': os.path.join(WEB_DIR, "rapports_issues"),
+        'json_file': "files_issues.json",
+        'label': "Rapports Issues (Programme de Rejet)"
+    }
+}
 
 
 # ============================================================================
@@ -121,27 +131,30 @@ def copier_rapports(source_dir, dest_dir, structure):
     return total_copies, total_files
 
 
-def generer_files_json(structure, output_path):
-    """Genere le fichier files.json"""
+def generer_files_json(structure, output_path, label):
+    """Genere le fichier JSON d'index"""
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(structure, f, ensure_ascii=False, indent=2)
-    print(f"[OK] files.json genere avec {sum(len(s) for d in structure.values() for s in d.values())} fichiers")
+    nb_fichiers = sum(len(s) for d in structure.values() for s in d.values())
+    print(f"[OK] {os.path.basename(output_path)} genere avec {nb_fichiers} fichiers")
 
 
-def main():
-    """Fonction principale"""
-    print("=" * 60)
-    print("SYNCHRONISATION DES RAPPORTS VERS LE WEB")
-    print("=" * 60)
+def sync_rapport_type(report_type):
+    """Synchronise un type de rapport specifique"""
+    config = RAPPORTS_CONFIG[report_type]
+
     print()
+    print("-" * 60)
+    print(f"  {config['label']}")
+    print("-" * 60)
 
     # Scanner les rapports
-    print(f"[*] Scan du dossier: {SOURCE_DIR}")
-    structure = scanner_rapports(SOURCE_DIR)
+    print(f"[*] Scan du dossier: {config['source_dir']}")
+    structure = scanner_rapports(config['source_dir'])
 
     if not structure:
         print("[!] Aucun rapport trouve")
-        return
+        return 0
 
     # Afficher le resume
     total_dates = len(structure)
@@ -154,19 +167,34 @@ def main():
     print()
 
     # Copier les rapports
-    print(f"[*] Copie des rapports vers: {RAPPORTS_DIR}")
-    copies, _ = copier_rapports(SOURCE_DIR, RAPPORTS_DIR, structure)
+    print(f"[*] Copie des rapports vers: {config['dest_dir']}")
+    copies, _ = copier_rapports(config['source_dir'], config['dest_dir'], structure)
     print(f"    {copies} fichier(s) copie(s)")
     print()
 
-    # Generer files.json
-    print(f"[*] Generation de files.json")
-    json_path = os.path.join(WEB_DIR, "files.json")
-    generer_files_json(structure, json_path)
+    # Generer le fichier JSON
+    print(f"[*] Generation de {config['json_file']}")
+    json_path = os.path.join(WEB_DIR, config['json_file'])
+    generer_files_json(structure, json_path, config['label'])
+
+    return total_files
+
+
+def main():
+    """Fonction principale"""
+    print("=" * 60)
+    print("SYNCHRONISATION DES RAPPORTS VERS LE WEB")
+    print("=" * 60)
+
+    total_all = 0
+
+    # Synchroniser les deux types de rapports
+    for report_type in RAPPORTS_CONFIG.keys():
+        total_all += sync_rapport_type(report_type)
 
     print()
     print("=" * 60)
-    print("[OK] Synchronisation terminee!")
+    print(f"[OK] Synchronisation terminee! ({total_all} fichiers au total)")
     print()
     print("    Prochaines etapes:")
     print("    1. cd Rapport_Web")
@@ -177,4 +205,16 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Permettre de synchroniser un seul type si specifie en argument
+    if len(sys.argv) > 1:
+        report_type = sys.argv[1]
+        if report_type in RAPPORTS_CONFIG:
+            print("=" * 60)
+            print(f"SYNCHRONISATION: {RAPPORTS_CONFIG[report_type]['label']}")
+            print("=" * 60)
+            sync_rapport_type(report_type)
+        else:
+            print(f"Type de rapport inconnu: {report_type}")
+            print(f"Types valides: {', '.join(RAPPORTS_CONFIG.keys())}")
+    else:
+        main()

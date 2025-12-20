@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapports de Coherence - EHCVM</title>
+    <title>Rapports EHCVM - Coherence & Issues</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         :root {
             --primary-color: #2c5282;
             --secondary-color: #4299e1;
+            --issues-color: #c53030;
+            --issues-secondary: #fc8181;
             --bg-light: #f7fafc;
         }
 
@@ -23,9 +25,60 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
+        .navbar.issues-mode {
+            background: linear-gradient(135deg, var(--issues-color), var(--issues-secondary));
+        }
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.4rem;
+        }
+
+        /* Report Type Selector */
+        .report-type-selector {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .report-type-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .report-type-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .report-type-btn.active.coherence {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .report-type-btn.active.issues {
+            border-color: var(--issues-color);
+            background: linear-gradient(135deg, var(--issues-color), var(--issues-secondary));
+            color: white;
+        }
+
+        .report-type-btn i {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .report-type-btn .count {
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
         .sidebar {
@@ -43,6 +96,11 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .sidebar.issues-mode h5 {
+            color: var(--issues-color);
+            border-bottom-color: var(--issues-secondary);
         }
 
         .date-btn {
@@ -64,6 +122,10 @@
             transform: translateX(5px);
         }
 
+        .issues-mode .date-btn:hover, .issues-mode .date-btn.active {
+            background: var(--issues-color);
+        }
+
         .supervisor-btn {
             display: block;
             width: 100%;
@@ -81,6 +143,10 @@
         .supervisor-btn:hover, .supervisor-btn.active {
             background: #e2e8f0;
             color: var(--primary-color);
+        }
+
+        .issues-mode .supervisor-btn:hover, .issues-mode .supervisor-btn.active {
+            color: var(--issues-color);
         }
 
         .main-content {
@@ -106,14 +172,28 @@
             transform: translateY(-2px);
         }
 
+        .issues-mode .file-card:hover {
+            border-color: var(--issues-color);
+            box-shadow: 0 4px 12px rgba(197, 48, 48, 0.15);
+        }
+
         .file-card.selected {
             border-color: var(--primary-color);
             background: #ebf8ff;
         }
 
+        .issues-mode .file-card.selected {
+            border-color: var(--issues-color);
+            background: #fff5f5;
+        }
+
         .file-icon {
             font-size: 2rem;
             color: var(--secondary-color);
+        }
+
+        .issues-mode .file-icon {
+            color: var(--issues-color);
         }
 
         .file-name {
@@ -146,6 +226,14 @@
             background: var(--secondary-color);
         }
 
+        .issues-mode .btn-download {
+            background: var(--issues-color);
+        }
+
+        .issues-mode .btn-download:hover {
+            background: var(--issues-secondary);
+        }
+
         .search-box {
             border-radius: 25px;
             padding-left: 20px;
@@ -165,6 +253,10 @@
             text-align: center;
         }
 
+        .stats-card.issues-mode {
+            background: linear-gradient(135deg, var(--issues-color), var(--issues-secondary));
+        }
+
         .stats-number {
             font-size: 2.5rem;
             font-weight: 700;
@@ -173,6 +265,10 @@
         .breadcrumb-item a {
             color: var(--secondary-color);
             text-decoration: none;
+        }
+
+        .issues-mode .breadcrumb-item a {
+            color: var(--issues-color);
         }
 
         .empty-state {
@@ -202,21 +298,35 @@
             margin-bottom: 15px;
         }
 
+        .badge-coherence {
+            background: var(--primary-color);
+        }
+
+        .badge-issues {
+            background: var(--issues-color);
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
                 margin-bottom: 20px;
+            }
+            .report-type-btn {
+                padding: 10px;
+            }
+            .report-type-btn i {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4" id="mainNavbar">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="#" onclick="goHome()">
                 <i class="bi bi-file-earmark-text me-2"></i>
-                Rapports de Coherence EHCVM
+                <span id="navTitle">Rapports EHCVM</span>
             </a>
             <span class="navbar-text text-white">
                 <i class="bi bi-calendar3 me-1"></i>
@@ -226,10 +336,28 @@
     </nav>
 
     <div class="container">
+        <!-- Report Type Selector -->
+        <div class="report-type-selector">
+            <div class="d-flex gap-3 flex-wrap">
+                <button class="report-type-btn active coherence" id="btnCoherence" onclick="selectReportType('coherence')">
+                    <i class="bi bi-check-circle"></i>
+                    <div>Rapports de Coherence</div>
+                    <div class="count" id="countCoherence">0</div>
+                    <small class="text-muted">rapports</small>
+                </button>
+                <button class="report-type-btn" id="btnIssues" onclick="selectReportType('issues')">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <div>Rapports d'Issues</div>
+                    <div class="count" id="countIssues">0</div>
+                    <small class="text-muted">rapports</small>
+                </button>
+            </div>
+        </div>
+
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-3 col-md-4">
-                <div class="sidebar mb-4">
+                <div class="sidebar mb-4" id="datesSidebar">
                     <h5><i class="bi bi-calendar-week me-2"></i>Dates</h5>
                     <div id="datesList" class="mb-3">
                         <div class="loading">
@@ -246,9 +374,9 @@
                 </div>
 
                 <!-- Stats -->
-                <div class="stats-card mt-4">
+                <div class="stats-card mt-4" id="statsCard">
                     <div class="stats-number" id="totalFiles">0</div>
-                    <div>Rapports disponibles</div>
+                    <div id="statsLabel">Rapports disponibles</div>
                 </div>
             </div>
 
@@ -289,7 +417,7 @@
                         <div class="empty-state">
                             <i class="bi bi-folder2-open"></i>
                             <h4>Bienvenue</h4>
-                            <p>Selectionnez une date pour voir les rapports disponibles</p>
+                            <p>Selectionnez un type de rapport puis une date pour voir les rapports disponibles</p>
                         </div>
                     </div>
                 </div>
@@ -304,68 +432,169 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Configuration - Base URL pour GitHub Pages
+        // Configuration
         const REPO_NAME = 'Rapport_Rejet';
         const GITHUB_USER = 'MoJoop';
         const BASE_URL = `https://${GITHUB_USER}.github.io/${REPO_NAME}`;
-        const RAW_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/main`;
 
         // State
+        let currentReportType = 'coherence';
         let currentDate = null;
         let currentSupervisor = null;
         let allFiles = [];
         let selectedFiles = new Set();
-        let filesData = {};
+
+        // Data stores
+        let coherenceData = {};
+        let issuesData = {};
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
-            loadDates();
-
-            // Search functionality
+            loadAllData();
             document.getElementById('searchInput').addEventListener('input', filterFiles);
         });
 
-        // Load available dates from files.json
-        async function loadDates() {
+        // Load all data
+        async function loadAllData() {
             try {
-                const response = await fetch('files.json');
-                if (!response.ok) throw new Error('Fichier non trouve');
-
-                filesData = await response.json();
-                const dates = Object.keys(filesData).sort().reverse();
-
-                const datesList = document.getElementById('datesList');
-
-                if (dates.length === 0) {
-                    datesList.innerHTML = '<p class="text-muted">Aucune date disponible</p>';
-                    return;
+                // Load coherence reports
+                const coherenceResponse = await fetch('files.json');
+                if (coherenceResponse.ok) {
+                    coherenceData = await coherenceResponse.json();
                 }
 
-                datesList.innerHTML = dates.map(date => `
-                    <button class="date-btn" onclick="selectDate('${date}')" id="date-${date}">
-                        <i class="bi bi-calendar3 me-2"></i>${date}
-                    </button>
-                `).join('');
+                // Load issues reports
+                const issuesResponse = await fetch('files_issues.json');
+                if (issuesResponse.ok) {
+                    issuesData = await issuesResponse.json();
+                }
 
-                // Update total files count
-                let total = 0;
-                Object.values(filesData).forEach(supervisors => {
-                    Object.values(supervisors).forEach(files => {
-                        total += files.length;
-                    });
-                });
-                document.getElementById('totalFiles').textContent = total;
+                // Update counts
+                updateCounts();
+
+                // Load dates for current type
+                loadDates();
 
             } catch (error) {
                 console.error('Erreur:', error);
                 document.getElementById('datesList').innerHTML = `
                     <div class="alert alert-warning">
                         <i class="bi bi-exclamation-triangle me-2"></i>
-                        Impossible de charger les donnees. Verifiez que files.json existe.
+                        Impossible de charger les donnees.
                     </div>
                 `;
             }
+        }
+
+        // Update counts
+        function updateCounts() {
+            let coherenceCount = 0;
+            Object.values(coherenceData).forEach(supervisors => {
+                Object.values(supervisors).forEach(files => {
+                    coherenceCount += files.length;
+                });
+            });
+            document.getElementById('countCoherence').textContent = coherenceCount;
+
+            let issuesCount = 0;
+            Object.values(issuesData).forEach(supervisors => {
+                Object.values(supervisors).forEach(files => {
+                    issuesCount += files.length;
+                });
+            });
+            document.getElementById('countIssues').textContent = issuesCount;
+        }
+
+        // Select report type
+        function selectReportType(type) {
+            currentReportType = type;
+            currentDate = null;
+            currentSupervisor = null;
+
+            // Update UI
+            document.getElementById('btnCoherence').classList.remove('active', 'coherence');
+            document.getElementById('btnIssues').classList.remove('active', 'issues');
+
+            const isIssues = type === 'issues';
+            const activeBtn = document.getElementById(isIssues ? 'btnIssues' : 'btnCoherence');
+            activeBtn.classList.add('active', type);
+
+            // Toggle issues mode class
+            document.getElementById('mainNavbar').classList.toggle('issues-mode', isIssues);
+            document.getElementById('datesSidebar').classList.toggle('issues-mode', isIssues);
+            document.getElementById('supervisorsSidebar').classList.toggle('issues-mode', isIssues);
+            document.getElementById('statsCard').classList.toggle('issues-mode', isIssues);
+            document.querySelector('.main-content').classList.toggle('issues-mode', isIssues);
+            document.querySelector('.action-bar').classList.toggle('issues-mode', isIssues);
+
+            // Update navbar title
+            document.getElementById('navTitle').textContent = isIssues
+                ? 'Rapports Issues - Programme de Rejet'
+                : 'Rapports de Coherence EHCVM';
+
+            // Update stats label
+            document.getElementById('statsLabel').textContent = isIssues
+                ? 'Issues detectees'
+                : 'Rapports disponibles';
+
+            // Hide supervisors sidebar
+            document.getElementById('supervisorsSidebar').style.display = 'none';
+
+            // Load dates
+            loadDates();
+
+            // Reset files
+            document.getElementById('selectAllContainer').style.display = 'none';
+            document.getElementById('filesContainer').innerHTML = `
+                <div class="empty-state">
+                    <i class="bi bi-folder2-open"></i>
+                    <h4>Selectionnez une date</h4>
+                    <p>Choisissez une date pour voir les rapports ${isIssues ? "d'issues" : 'de coherence'}</p>
+                </div>
+            `;
+
+            selectedFiles.clear();
+            updateSelectedCount();
+            updateBreadcrumb([]);
+        }
+
+        // Get current data
+        function getCurrentData() {
+            return currentReportType === 'issues' ? issuesData : coherenceData;
+        }
+
+        // Get rapports folder
+        function getRapportsFolder() {
+            return currentReportType === 'issues' ? 'rapports_issues' : 'rapports';
+        }
+
+        // Load dates
+        function loadDates() {
+            const data = getCurrentData();
+            const dates = Object.keys(data).sort().reverse();
+            const datesList = document.getElementById('datesList');
+
+            if (dates.length === 0) {
+                datesList.innerHTML = '<p class="text-muted">Aucune date disponible</p>';
+                document.getElementById('totalFiles').textContent = '0';
+                return;
+            }
+
+            datesList.innerHTML = dates.map(date => `
+                <button class="date-btn" onclick="selectDate('${date}')" id="date-${date}">
+                    <i class="bi bi-calendar3 me-2"></i>${date}
+                </button>
+            `).join('');
+
+            // Update total
+            let total = 0;
+            Object.values(data).forEach(supervisors => {
+                Object.values(supervisors).forEach(files => {
+                    total += files.length;
+                });
+            });
+            document.getElementById('totalFiles').textContent = total;
         }
 
         // Select a date
@@ -373,12 +602,14 @@
             currentDate = date;
             currentSupervisor = null;
 
+            const data = getCurrentData();
+
             // Update UI
             document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(`date-${date}`).classList.add('active');
 
             // Show supervisors
-            const supervisors = Object.keys(filesData[date] || {}).sort();
+            const supervisors = Object.keys(data[date] || {}).sort();
             const supervisorsSidebar = document.getElementById('supervisorsSidebar');
             const supervisorsList = document.getElementById('supervisorsList');
 
@@ -390,22 +621,20 @@
                     </button>
                 ` + supervisors.map(sup => `
                     <button class="supervisor-btn" onclick="selectSupervisor('${sup}')" id="sup-${sup}">
-                        <i class="bi bi-person me-2"></i>${sup} (${filesData[date][sup].length})
+                        <i class="bi bi-person me-2"></i>${sup} (${data[date][sup].length})
                     </button>
                 `).join('');
             }
 
-            // Update breadcrumb
             updateBreadcrumb([date]);
-
-            // Show all files for this date
             showFiles(date, null);
         }
 
         // Get total files for a date
         function getTotalFilesForDate(date) {
+            const data = getCurrentData();
             let total = 0;
-            Object.values(filesData[date] || {}).forEach(files => {
+            Object.values(data[date] || {}).forEach(files => {
                 total += files.length;
             });
             return total;
@@ -415,7 +644,6 @@
         function selectSupervisor(supervisor) {
             currentSupervisor = supervisor;
 
-            // Update UI
             document.querySelectorAll('.supervisor-btn').forEach(btn => btn.classList.remove('active'));
             if (supervisor) {
                 document.getElementById(`sup-${supervisor}`).classList.add('active');
@@ -432,16 +660,15 @@
         function showFiles(date, supervisor) {
             const container = document.getElementById('filesContainer');
             const selectAllContainer = document.getElementById('selectAllContainer');
+            const data = getCurrentData();
 
             allFiles = [];
 
             if (supervisor) {
-                // Files for specific supervisor
-                const files = filesData[date][supervisor] || [];
+                const files = data[date][supervisor] || [];
                 allFiles = files.map(f => ({ ...f, supervisor }));
             } else {
-                // All files for the date
-                Object.entries(filesData[date] || {}).forEach(([sup, files]) => {
+                Object.entries(data[date] || {}).forEach(([sup, files]) => {
                     files.forEach(f => {
                         allFiles.push({ ...f, supervisor: sup });
                     });
@@ -472,6 +699,7 @@
         // Render files
         function renderFiles(files) {
             const container = document.getElementById('filesContainer');
+            const isIssues = currentReportType === 'issues';
 
             container.innerHTML = `
                 <div class="row">
@@ -492,6 +720,9 @@
                                         <div class="file-name">${file.name}</div>
                                         <div class="file-info">
                                             <i class="bi bi-person me-1"></i>${file.supervisor}
+                                            <span class="badge ${isIssues ? 'badge-issues' : 'badge-coherence'} ms-2">
+                                                ${isIssues ? 'Issue' : 'Coherence'}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -510,7 +741,6 @@
                 selectedFiles.add(path);
             }
 
-            // Update UI
             const cards = document.querySelectorAll('.file-card');
             cards[index].classList.toggle('selected');
             cards[index].querySelector('input').checked = selectedFiles.has(path);
@@ -528,7 +758,6 @@
                 selectedFiles.clear();
             }
 
-            // Update UI
             document.querySelectorAll('.file-card').forEach((card, i) => {
                 card.classList.toggle('selected', selectAll);
                 card.querySelector('input').checked = selectAll;
@@ -548,8 +777,9 @@
         function downloadSelected() {
             if (selectedFiles.size === 0) return;
 
+            const folder = getRapportsFolder();
             selectedFiles.forEach(path => {
-                const url = `${BASE_URL}/rapports/${path}`;
+                const url = `${BASE_URL}/${folder}/${path}`;
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = path.split('/').pop();
@@ -572,8 +802,11 @@
         // Update breadcrumb
         function updateBreadcrumb(items) {
             const breadcrumb = document.getElementById('breadcrumb');
+            const typeLabel = currentReportType === 'issues' ? 'Issues' : 'Coherence';
+
             breadcrumb.innerHTML = `
                 <li class="breadcrumb-item"><a href="#" onclick="goHome()">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="#" onclick="selectReportType('${currentReportType}')">${typeLabel}</a></li>
                 ${items.map((item, i) =>
                     i === items.length - 1
                         ? `<li class="breadcrumb-item active">${item}</li>`
@@ -590,13 +823,14 @@
             document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('supervisorsSidebar').style.display = 'none';
             document.getElementById('selectAllContainer').style.display = 'none';
-            document.getElementById('breadcrumb').innerHTML = '<li class="breadcrumb-item active">Accueil</li>';
+
+            updateBreadcrumb([]);
 
             document.getElementById('filesContainer').innerHTML = `
                 <div class="empty-state">
                     <i class="bi bi-folder2-open"></i>
                     <h4>Bienvenue</h4>
-                    <p>Selectionnez une date pour voir les rapports disponibles</p>
+                    <p>Selectionnez un type de rapport puis une date pour voir les rapports disponibles</p>
                 </div>
             `;
 
