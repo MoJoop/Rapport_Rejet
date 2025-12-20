@@ -570,40 +570,54 @@
 
         // Load all data
         async function loadAllData() {
+            console.log('Chargement des donnees...');
+
+            // Load coherence reports
             try {
-                // Load coherence reports
                 const coherenceResponse = await fetch('files.json');
                 if (coherenceResponse.ok) {
                     coherenceData = await coherenceResponse.json();
+                    console.log('Coherence data loaded:', Object.keys(coherenceData).length, 'dates');
+                } else {
+                    console.error('Erreur chargement files.json:', coherenceResponse.status);
                 }
+            } catch (error) {
+                console.error('Erreur fetch files.json:', error);
+            }
 
-                // Load issues reports
+            // Load issues reports
+            try {
                 const issuesResponse = await fetch('files_issues.json');
                 if (issuesResponse.ok) {
                     issuesData = await issuesResponse.json();
+                    console.log('Issues data loaded:', Object.keys(issuesData).length, 'dates');
+                } else {
+                    console.error('Erreur chargement files_issues.json:', issuesResponse.status);
                 }
+            } catch (error) {
+                console.error('Erreur fetch files_issues.json:', error);
+            }
 
-                // Load reject data
+            // Load reject data
+            try {
                 const rejectResponse = await fetch('qnr_a_rejeter.json');
                 if (rejectResponse.ok) {
                     rejectData = await rejectResponse.json();
+                    console.log('Reject data loaded:', rejectData.length, 'questionnaires');
+                } else {
+                    console.error('Erreur chargement qnr_a_rejeter.json:', rejectResponse.status);
                 }
-
-                // Update counts
-                updateCounts();
-
-                // Load dates for current type
-                loadDates();
-
             } catch (error) {
-                console.error('Erreur:', error);
-                document.getElementById('datesList').innerHTML = `
-                    <div class="alert alert-warning">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        Impossible de charger les donnees.
-                    </div>
-                `;
+                console.error('Erreur fetch qnr_a_rejeter.json:', error);
             }
+
+            // Update counts
+            updateCounts();
+
+            // Load dates for current type
+            loadDates();
+
+            console.log('Chargement termine. Coherence:', Object.keys(coherenceData).length, 'Issues:', Object.keys(issuesData).length, 'Reject:', rejectData.length);
         }
 
         // Update counts
@@ -729,12 +743,34 @@
 
         // Load reject mode
         function loadRejectMode() {
+            console.log('loadRejectMode called, rejectData length:', rejectData.length);
+
             // Update sidebar to show supervisors filter
             const datesSidebar = document.getElementById('datesSidebar');
             datesSidebar.querySelector('h5').innerHTML = '<i class="bi bi-funnel me-2"></i>Filtrer par Superviseur';
 
+            // Check if data is loaded
+            if (!rejectData || rejectData.length === 0) {
+                console.log('rejectData is empty, showing loading message');
+                document.getElementById('datesList').innerHTML = '<p class="text-muted">Chargement en cours...</p>';
+                document.getElementById('filesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-hourglass-split"></i>
+                        <h4>Chargement...</h4>
+                        <p>Les donnees sont en cours de chargement. Veuillez patienter.</p>
+                    </div>
+                `;
+                // Retry after a short delay
+                setTimeout(() => {
+                    if (rejectData && rejectData.length > 0) {
+                        loadRejectMode();
+                    }
+                }, 1000);
+                return;
+            }
+
             // Get unique supervisors
-            const supervisors = [...new Set(rejectData.map(r => r.SUPERVISEUR))].sort();
+            const supervisors = [...new Set(rejectData.map(r => r.SUPERVISEUR))].filter(s => s).sort();
 
             const datesList = document.getElementById('datesList');
             datesList.innerHTML = `
