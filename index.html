@@ -12,6 +12,8 @@
             --secondary-color: #4299e1;
             --issues-color: #c53030;
             --issues-secondary: #fc8181;
+            --reject-color: #805ad5;
+            --reject-secondary: #b794f4;
             --bg-light: #f7fafc;
         }
 
@@ -27,6 +29,10 @@
 
         .navbar.issues-mode {
             background: linear-gradient(135deg, var(--issues-color), var(--issues-secondary));
+        }
+
+        .navbar.reject-mode {
+            background: linear-gradient(135deg, var(--reject-color), var(--reject-secondary));
         }
 
         .navbar-brand {
@@ -70,6 +76,12 @@
             color: white;
         }
 
+        .report-type-btn.active.reject {
+            border-color: var(--reject-color);
+            background: linear-gradient(135deg, var(--reject-color), var(--reject-secondary));
+            color: white;
+        }
+
         .report-type-btn i {
             font-size: 2rem;
             display: block;
@@ -103,7 +115,12 @@
             border-bottom-color: var(--issues-secondary);
         }
 
-        .date-btn {
+        .sidebar.reject-mode h5 {
+            color: var(--reject-color);
+            border-bottom-color: var(--reject-secondary);
+        }
+
+        .date-btn, .filter-btn {
             display: block;
             width: 100%;
             text-align: left;
@@ -124,6 +141,12 @@
 
         .issues-mode .date-btn:hover, .issues-mode .date-btn.active {
             background: var(--issues-color);
+        }
+
+        .reject-mode .filter-btn:hover, .reject-mode .filter-btn.active {
+            background: var(--reject-color);
+            color: white;
+            transform: translateX(5px);
         }
 
         .supervisor-btn {
@@ -147,6 +170,10 @@
 
         .issues-mode .supervisor-btn:hover, .issues-mode .supervisor-btn.active {
             color: var(--issues-color);
+        }
+
+        .reject-mode .supervisor-btn:hover, .reject-mode .supervisor-btn.active {
+            color: var(--reject-color);
         }
 
         .main-content {
@@ -234,6 +261,14 @@
             background: var(--issues-secondary);
         }
 
+        .reject-mode .btn-download {
+            background: var(--reject-color);
+        }
+
+        .reject-mode .btn-download:hover {
+            background: var(--reject-secondary);
+        }
+
         .search-box {
             border-radius: 25px;
             padding-left: 20px;
@@ -257,6 +292,10 @@
             background: linear-gradient(135deg, var(--issues-color), var(--issues-secondary));
         }
 
+        .stats-card.reject-mode {
+            background: linear-gradient(135deg, var(--reject-color), var(--reject-secondary));
+        }
+
         .stats-number {
             font-size: 2.5rem;
             font-weight: 700;
@@ -269,6 +308,10 @@
 
         .issues-mode .breadcrumb-item a {
             color: var(--issues-color);
+        }
+
+        .reject-mode .breadcrumb-item a {
+            color: var(--reject-color);
         }
 
         .empty-state {
@@ -306,6 +349,65 @@
             background: var(--issues-color);
         }
 
+        .badge-reject {
+            background: var(--reject-color);
+        }
+
+        /* Table styles for reject mode */
+        .table-reject {
+            font-size: 0.9rem;
+        }
+
+        .table-reject th {
+            background: var(--reject-color);
+            color: white;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+        }
+
+        .table-reject td {
+            vertical-align: middle;
+        }
+
+        .table-reject .btn-hq {
+            background: var(--reject-color);
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .table-reject .btn-hq:hover {
+            background: var(--reject-secondary);
+        }
+
+        .obs-cell {
+            max-width: 400px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .obs-cell code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+
+        .interview-key {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--reject-color);
+        }
+
+        .table-container {
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
@@ -316,6 +418,9 @@
             }
             .report-type-btn i {
                 font-size: 1.5rem;
+            }
+            .table-reject {
+                font-size: 0.75rem;
             }
         }
     </style>
@@ -350,6 +455,12 @@
                     <div>Rapports d'Issues</div>
                     <div class="count" id="countIssues">0</div>
                     <small class="text-muted">rapports</small>
+                </button>
+                <button class="report-type-btn" id="btnReject" onclick="selectReportType('reject')">
+                    <i class="bi bi-x-circle"></i>
+                    <div>Questionnaires a Rejeter</div>
+                    <div class="count" id="countReject">0</div>
+                    <small class="text-muted">questionnaires</small>
                 </button>
             </div>
         </div>
@@ -390,12 +501,12 @@
                 </nav>
 
                 <!-- Action Bar -->
-                <div class="action-bar d-flex flex-wrap justify-content-between align-items-center">
+                <div class="action-bar d-flex flex-wrap justify-content-between align-items-center" id="actionBar">
                     <div class="d-flex align-items-center gap-3 mb-2 mb-md-0">
                         <input type="text" class="form-control search-box" id="searchInput"
                                placeholder="Rechercher un rapport..." style="width: 300px;">
                     </div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2" id="downloadActions">
                         <span class="text-muted me-2" id="selectedCount">0 selectionne(s)</span>
                         <button class="btn btn-download btn-primary" id="downloadBtn" onclick="downloadSelected()" disabled>
                             <i class="bi bi-download me-2"></i>Telecharger
@@ -404,7 +515,7 @@
                 </div>
 
                 <!-- Files Container -->
-                <div class="main-content">
+                <div class="main-content" id="mainContent">
                     <div class="select-all-container" id="selectAllContainer" style="display: none;">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="selectAll" onchange="toggleSelectAll()">
@@ -436,6 +547,7 @@
         const REPO_NAME = 'Rapport_Rejet';
         const GITHUB_USER = 'MoJoop';
         const BASE_URL = `https://${GITHUB_USER}.github.io/${REPO_NAME}`;
+        const HQ_BASE_URL = 'https://dpeeservey2.ansd.sn:9702/ehcvm3/Interview/Review/';
 
         // State
         let currentReportType = 'coherence';
@@ -447,12 +559,13 @@
         // Data stores
         let coherenceData = {};
         let issuesData = {};
+        let rejectData = [];
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('currentDate').textContent = new Date().toLocaleDateString('fr-FR');
             loadAllData();
-            document.getElementById('searchInput').addEventListener('input', filterFiles);
+            document.getElementById('searchInput').addEventListener('input', filterContent);
         });
 
         // Load all data
@@ -468,6 +581,12 @@
                 const issuesResponse = await fetch('files_issues.json');
                 if (issuesResponse.ok) {
                     issuesData = await issuesResponse.json();
+                }
+
+                // Load reject data
+                const rejectResponse = await fetch('qnr_a_rejeter.json');
+                if (rejectResponse.ok) {
+                    rejectData = await rejectResponse.json();
                 }
 
                 // Update counts
@@ -504,6 +623,8 @@
                 });
             });
             document.getElementById('countIssues').textContent = issuesCount;
+
+            document.getElementById('countReject').textContent = rejectData.length;
         }
 
         // Select report type
@@ -512,51 +633,225 @@
             currentDate = null;
             currentSupervisor = null;
 
-            // Update UI
+            // Update UI - remove all active states
             document.getElementById('btnCoherence').classList.remove('active', 'coherence');
             document.getElementById('btnIssues').classList.remove('active', 'issues');
+            document.getElementById('btnReject').classList.remove('active', 'reject');
 
             const isIssues = type === 'issues';
-            const activeBtn = document.getElementById(isIssues ? 'btnIssues' : 'btnCoherence');
-            activeBtn.classList.add('active', type);
+            const isReject = type === 'reject';
 
-            // Toggle issues mode class
-            document.getElementById('mainNavbar').classList.toggle('issues-mode', isIssues);
-            document.getElementById('datesSidebar').classList.toggle('issues-mode', isIssues);
-            document.getElementById('supervisorsSidebar').classList.toggle('issues-mode', isIssues);
-            document.getElementById('statsCard').classList.toggle('issues-mode', isIssues);
-            document.querySelector('.main-content').classList.toggle('issues-mode', isIssues);
-            document.querySelector('.action-bar').classList.toggle('issues-mode', isIssues);
+            // Set active button
+            if (isReject) {
+                document.getElementById('btnReject').classList.add('active', 'reject');
+            } else if (isIssues) {
+                document.getElementById('btnIssues').classList.add('active', 'issues');
+            } else {
+                document.getElementById('btnCoherence').classList.add('active', 'coherence');
+            }
+
+            // Toggle mode classes
+            const navbar = document.getElementById('mainNavbar');
+            const datesSidebar = document.getElementById('datesSidebar');
+            const supervisorsSidebar = document.getElementById('supervisorsSidebar');
+            const statsCard = document.getElementById('statsCard');
+            const mainContent = document.getElementById('mainContent');
+            const actionBar = document.getElementById('actionBar');
+
+            navbar.classList.remove('issues-mode', 'reject-mode');
+            datesSidebar.classList.remove('issues-mode', 'reject-mode');
+            supervisorsSidebar.classList.remove('issues-mode', 'reject-mode');
+            statsCard.classList.remove('issues-mode', 'reject-mode');
+            mainContent.classList.remove('issues-mode', 'reject-mode');
+            actionBar.classList.remove('issues-mode', 'reject-mode');
+
+            if (isIssues) {
+                navbar.classList.add('issues-mode');
+                datesSidebar.classList.add('issues-mode');
+                supervisorsSidebar.classList.add('issues-mode');
+                statsCard.classList.add('issues-mode');
+                mainContent.classList.add('issues-mode');
+                actionBar.classList.add('issues-mode');
+            } else if (isReject) {
+                navbar.classList.add('reject-mode');
+                datesSidebar.classList.add('reject-mode');
+                supervisorsSidebar.classList.add('reject-mode');
+                statsCard.classList.add('reject-mode');
+                mainContent.classList.add('reject-mode');
+                actionBar.classList.add('reject-mode');
+            }
 
             // Update navbar title
-            document.getElementById('navTitle').textContent = isIssues
-                ? 'Rapports Issues - Programme de Rejet'
-                : 'Rapports de Coherence EHCVM';
+            if (isReject) {
+                document.getElementById('navTitle').textContent = 'Questionnaires a Rejeter - EHCVM';
+            } else if (isIssues) {
+                document.getElementById('navTitle').textContent = 'Rapports Issues - Programme de Rejet';
+            } else {
+                document.getElementById('navTitle').textContent = 'Rapports de Coherence EHCVM';
+            }
 
             // Update stats label
-            document.getElementById('statsLabel').textContent = isIssues
-                ? 'Issues detectees'
-                : 'Rapports disponibles';
+            if (isReject) {
+                document.getElementById('statsLabel').textContent = 'Questionnaires a rejeter';
+            } else if (isIssues) {
+                document.getElementById('statsLabel').textContent = 'Issues detectees';
+            } else {
+                document.getElementById('statsLabel').textContent = 'Rapports disponibles';
+            }
 
-            // Hide supervisors sidebar
-            document.getElementById('supervisorsSidebar').style.display = 'none';
+            // Handle reject mode differently
+            if (isReject) {
+                loadRejectMode();
+            } else {
+                // Hide supervisors sidebar
+                document.getElementById('supervisorsSidebar').style.display = 'none';
+                document.getElementById('downloadActions').style.display = 'flex';
+                document.getElementById('searchInput').placeholder = 'Rechercher un rapport...';
 
-            // Load dates
-            loadDates();
+                // Load dates
+                loadDates();
 
-            // Reset files
-            document.getElementById('selectAllContainer').style.display = 'none';
-            document.getElementById('filesContainer').innerHTML = `
-                <div class="empty-state">
-                    <i class="bi bi-folder2-open"></i>
-                    <h4>Selectionnez une date</h4>
-                    <p>Choisissez une date pour voir les rapports ${isIssues ? "d'issues" : 'de coherence'}</p>
-                </div>
-            `;
+                // Reset files
+                document.getElementById('selectAllContainer').style.display = 'none';
+                document.getElementById('filesContainer').innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-folder2-open"></i>
+                        <h4>Selectionnez une date</h4>
+                        <p>Choisissez une date pour voir les rapports ${isIssues ? "d'issues" : 'de coherence'}</p>
+                    </div>
+                `;
+            }
 
             selectedFiles.clear();
             updateSelectedCount();
             updateBreadcrumb([]);
+        }
+
+        // Load reject mode
+        function loadRejectMode() {
+            // Update sidebar to show supervisors filter
+            const datesSidebar = document.getElementById('datesSidebar');
+            datesSidebar.querySelector('h5').innerHTML = '<i class="bi bi-funnel me-2"></i>Filtrer par Superviseur';
+
+            // Get unique supervisors
+            const supervisors = [...new Set(rejectData.map(r => r.SUPERVISEUR))].sort();
+
+            const datesList = document.getElementById('datesList');
+            datesList.innerHTML = `
+                <button class="filter-btn active" onclick="filterRejectBySupervisor(null)" id="filter-all">
+                    <i class="bi bi-grid me-2"></i>Tous (${rejectData.length})
+                </button>
+                ${supervisors.map(sup => {
+                    const count = rejectData.filter(r => r.SUPERVISEUR === sup).length;
+                    return `
+                        <button class="filter-btn" onclick="filterRejectBySupervisor('${sup}')" id="filter-${sup}">
+                            <i class="bi bi-person me-2"></i>${sup} (${count})
+                        </button>
+                    `;
+                }).join('')}
+            `;
+
+            // Hide download actions, update search placeholder
+            document.getElementById('downloadActions').style.display = 'none';
+            document.getElementById('searchInput').placeholder = 'Rechercher par interview_key...';
+            document.getElementById('supervisorsSidebar').style.display = 'none';
+            document.getElementById('selectAllContainer').style.display = 'none';
+
+            // Update stats
+            document.getElementById('totalFiles').textContent = rejectData.length;
+
+            // Show all reject data
+            renderRejectTable(rejectData);
+        }
+
+        // Filter reject by supervisor
+        function filterRejectBySupervisor(supervisor) {
+            currentSupervisor = supervisor;
+
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if (supervisor) {
+                document.getElementById(`filter-${supervisor}`).classList.add('active');
+                updateBreadcrumb([supervisor]);
+            } else {
+                document.getElementById('filter-all').classList.add('active');
+                updateBreadcrumb([]);
+            }
+
+            // Filter data
+            const filteredData = supervisor
+                ? rejectData.filter(r => r.SUPERVISEUR === supervisor)
+                : rejectData;
+
+            document.getElementById('totalFiles').textContent = filteredData.length;
+            renderRejectTable(filteredData);
+        }
+
+        // Render reject table
+        function renderRejectTable(data) {
+            const container = document.getElementById('filesContainer');
+
+            if (data.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="bi bi-inbox"></i>
+                        <h4>Aucun questionnaire</h4>
+                        <p>Aucun questionnaire a rejeter pour cette selection</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="table-container">
+                    <table class="table table-hover table-reject">
+                        <thead>
+                            <tr>
+                                <th style="width: 130px;">Interview Key</th>
+                                <th style="width: 100px;">Responsible</th>
+                                <th style="width: 120px;">Superviseur</th>
+                                <th>Observations (Rapports)</th>
+                                <th style="width: 120px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map(row => `
+                                <tr>
+                                    <td class="interview-key">${row.interview__key || ''}</td>
+                                    <td>${row.responsible || ''}</td>
+                                    <td><span class="badge badge-reject">${row.SUPERVISEUR || ''}</span></td>
+                                    <td class="obs-cell">
+                                        ${formatObs(row.Obs)}
+                                    </td>
+                                    <td>
+                                        <a href="${HQ_BASE_URL}${row.interview__id}"
+                                           target="_blank"
+                                           class="btn btn-hq"
+                                           title="Ouvrir dans Headquarters">
+                                            <i class="bi bi-box-arrow-up-right me-1"></i>Rejeter
+                                        </a>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // Format observations
+        function formatObs(obs) {
+            if (!obs) return '<em class="text-muted">-</em>';
+
+            const parts = obs.split(' | ');
+            return parts.map(part => {
+                // Extract just the filename for display
+                const filename = part.split('/').pop();
+                const isIssue = part.includes('Rapport_Issues');
+                const badgeClass = isIssue ? 'badge-issues' : 'badge-coherence';
+                const label = isIssue ? 'Issue' : 'Coh';
+                return `<span class="badge ${badgeClass} me-1">${label}</span><code>${filename}</code>`;
+            }).join('<br>');
         }
 
         // Get current data
@@ -571,6 +866,9 @@
 
         // Load dates
         function loadDates() {
+            const datesSidebar = document.getElementById('datesSidebar');
+            datesSidebar.querySelector('h5').innerHTML = '<i class="bi bi-calendar-week me-2"></i>Dates';
+
             const data = getCurrentData();
             const dates = Object.keys(data).sort().reverse();
             const datesList = document.getElementById('datesList');
@@ -790,19 +1088,32 @@
             });
         }
 
-        // Filter files by search
-        function filterFiles() {
+        // Filter content by search
+        function filterContent() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            document.querySelectorAll('.file-item').forEach(item => {
-                const name = item.dataset.name;
-                item.style.display = name.includes(search) ? 'block' : 'none';
-            });
+
+            if (currentReportType === 'reject') {
+                // Filter table rows
+                document.querySelectorAll('.table-reject tbody tr').forEach(row => {
+                    const key = row.querySelector('.interview-key')?.textContent.toLowerCase() || '';
+                    const responsible = row.cells[1]?.textContent.toLowerCase() || '';
+                    row.style.display = (key.includes(search) || responsible.includes(search)) ? '' : 'none';
+                });
+            } else {
+                // Filter file items
+                document.querySelectorAll('.file-item').forEach(item => {
+                    const name = item.dataset.name;
+                    item.style.display = name.includes(search) ? 'block' : 'none';
+                });
+            }
         }
 
         // Update breadcrumb
         function updateBreadcrumb(items) {
             const breadcrumb = document.getElementById('breadcrumb');
-            const typeLabel = currentReportType === 'issues' ? 'Issues' : 'Coherence';
+            let typeLabel = 'Coherence';
+            if (currentReportType === 'issues') typeLabel = 'Issues';
+            if (currentReportType === 'reject') typeLabel = 'Rejeter';
 
             breadcrumb.innerHTML = `
                 <li class="breadcrumb-item"><a href="#" onclick="goHome()">Accueil</a></li>
@@ -821,6 +1132,7 @@
             currentSupervisor = null;
 
             document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('supervisorsSidebar').style.display = 'none';
             document.getElementById('selectAllContainer').style.display = 'none';
 
