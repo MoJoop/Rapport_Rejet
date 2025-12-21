@@ -600,7 +600,7 @@
 
             // Load reject data
             try {
-                const rejectResponse = await fetch('qnr_a_rejeter.json');
+                const rejectResponse = await fetch('qnr_a_rejeter.json?v=' + Date.now());
                 if (rejectResponse.ok) {
                     rejectData = await rejectResponse.json();
                     console.log('Reject data loaded:', rejectData.length, 'questionnaires');
