@@ -1,62 +1,498 @@
 {
   "07_01_2026": {
-    "DIAKHOU": [
+    "ABD": [
       {
-        "name": "coh_EQ12_sup_.docx",
-        "path": "07_01_2026/DIAKHOU/coh_EQ12_sup_.docx",
-        "size": 41640
+        "name": "coh_EQ13_sup_081101000028.docx",
+        "path": "07_01_2026/ABD/coh_EQ13_sup_081101000028.docx",
+        "size": 49264
       },
+      {
+        "name": "coh_EQ13_sup_081201040007.docx",
+        "path": "07_01_2026/ABD/coh_EQ13_sup_081201040007.docx",
+        "size": 47817
+      },
+      {
+        "name": "coh_EQ13_sup_081201060001.docx",
+        "path": "07_01_2026/ABD/coh_EQ13_sup_081201060001.docx",
+        "size": 48695
+      },
+      {
+        "name": "coh_EQ13_sup_081202060010.docx",
+        "path": "07_01_2026/ABD/coh_EQ13_sup_081202060010.docx",
+        "size": 49481
+      },
+      {
+        "name": "coh_EQ16_sup_041202010050.docx",
+        "path": "07_01_2026/ABD/coh_EQ16_sup_041202010050.docx",
+        "size": 47865
+      },
+      {
+        "name": "coh_EQ16_sup_043101000091.docx",
+        "path": "07_01_2026/ABD/coh_EQ16_sup_043101000091.docx",
+        "size": 43301
+      },
+      {
+        "name": "coh_EQ16_sup_043201010082.docx",
+        "path": "07_01_2026/ABD/coh_EQ16_sup_043201010082.docx",
+        "size": 41276
+      },
+      {
+        "name": "coh_EQ16_sup_043201020012.docx",
+        "path": "07_01_2026/ABD/coh_EQ16_sup_043201020012.docx",
+        "size": 48032
+      },
+      {
+        "name": "coh_EQ9_sup_072201010032.docx",
+        "path": "07_01_2026/ABD/coh_EQ9_sup_072201010032.docx",
+        "size": 42964
+      },
+      {
+        "name": "coh_EQ9_sup_072203020001.docx",
+        "path": "07_01_2026/ABD/coh_EQ9_sup_072203020001.docx",
+        "size": 43702
+      },
+      {
+        "name": "coh_EQ9_sup_072203020015.docx",
+        "path": "07_01_2026/ABD/coh_EQ9_sup_072203020015.docx",
+        "size": 45572
+      },
+      {
+        "name": "coh_EQ9_sup_073201040003.docx",
+        "path": "07_01_2026/ABD/coh_EQ9_sup_073201040003.docx",
+        "size": 45530
+      }
+    ],
+    "Abdou_FAYE": [
+      {
+        "name": "coh_EQ14_sup_072203020015.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ14_sup_072203020015.docx",
+        "size": 39206
+      },
+      {
+        "name": "coh_EQ14_sup_083101000047.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ14_sup_083101000047.docx",
+        "size": 45906
+      },
+      {
+        "name": "coh_EQ14_sup_083202030040.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ14_sup_083202030040.docx",
+        "size": 45719
+      },
+      {
+        "name": "coh_EQ14_sup_083204010011.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ14_sup_083204010011.docx",
+        "size": 45027
+      },
+      {
+        "name": "coh_EQ14_sup_083204030017.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ14_sup_083204030017.docx",
+        "size": 47109
+      },
+      {
+        "name": "coh_EQ30_sup_131101000005.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ30_sup_131101000005.docx",
+        "size": 46953
+      },
+      {
+        "name": "coh_EQ30_sup_131101000037.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ30_sup_131101000037.docx",
+        "size": 42490
+      },
+      {
+        "name": "coh_EQ30_sup_131101000041.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ30_sup_131101000041.docx",
+        "size": 38754
+      },
+      {
+        "name": "coh_EQ30_sup_131101000048.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ30_sup_131101000048.docx",
+        "size": 42538
+      },
+      {
+        "name": "coh_EQ30_sup_131201020010.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ30_sup_131201020010.docx",
+        "size": 47933
+      },
+      {
+        "name": "coh_EQ34_sup_101202010011.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ34_sup_101202010011.docx",
+        "size": 51864
+      },
+      {
+        "name": "coh_EQ34_sup_103101000002.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ34_sup_103101000002.docx",
+        "size": 49863
+      },
+      {
+        "name": "coh_EQ34_sup_103203020032.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ34_sup_103203020032.docx",
+        "size": 51309
+      },
+      {
+        "name": "coh_EQ34_sup_103203030018.docx",
+        "path": "07_01_2026/Abdou_FAYE/coh_EQ34_sup_103203030018.docx",
+        "size": 49579
+      }
+    ],
+    "AGATHE": [
+      {
+        "name": "coh_EQ3_sup_014301210033.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ3_sup_014301210033.docx",
+        "size": 44894
+      },
+      {
+        "name": "coh_EQ3_sup_014301220035.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ3_sup_014301220035.docx",
+        "size": 43394
+      },
+      {
+        "name": "coh_EQ3_sup_014301230043.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ3_sup_014301230043.docx",
+        "size": 43792
+      },
+      {
+        "name": "coh_EQ3_sup_014301230084.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ3_sup_014301230084.docx",
+        "size": 43593
+      },
+      {
+        "name": "coh_EQ4_sup_015201010122.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ4_sup_015201010122.docx",
+        "size": 49335
+      },
+      {
+        "name": "coh_EQ4_sup_015202010209.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ4_sup_015202010209.docx",
+        "size": 44366
+      },
+      {
+        "name": "coh_EQ4_sup_015203020024.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ4_sup_015203020024.docx",
+        "size": 44336
+      },
+      {
+        "name": "coh_EQ4_sup_015203020088.docx",
+        "path": "07_01_2026/AGATHE/coh_EQ4_sup_015203020088.docx",
+        "size": 47962
+      }
+    ],
+    "ALPHA_BALDE": [
+      {
+        "name": "coh_EQ21_sup_092101000004.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ21_sup_092101000004.docx",
+        "size": 45897
+      },
+      {
+        "name": "coh_EQ21_sup_092102000019.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ21_sup_092102000019.docx",
+        "size": 41727
+      },
+      {
+        "name": "coh_EQ21_sup_092201010009.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ21_sup_092201010009.docx",
+        "size": 47255
+      },
+      {
+        "name": "coh_EQ21_sup_092201060011.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ21_sup_092201060011.docx",
+        "size": 48635
+      },
+      {
+        "name": "coh_EQ21_sup_092203030011.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ21_sup_092203030011.docx",
+        "size": 43576
+      },
+      {
+        "name": "coh_EQ22_sup_091201020022.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ22_sup_091201020022.docx",
+        "size": 40337
+      },
+      {
+        "name": "coh_EQ22_sup_091201040010.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ22_sup_091201040010.docx",
+        "size": 47439
+      },
+      {
+        "name": "coh_EQ22_sup_091201050006.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ22_sup_091201050006.docx",
+        "size": 51054
+      },
+      {
+        "name": "coh_EQ22_sup_091203020008.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ22_sup_091203020008.docx",
+        "size": 52263
+      },
+      {
+        "name": "coh_EQ22_sup_091203020015.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ22_sup_091203020015.docx",
+        "size": 56213
+      },
+      {
+        "name": "coh_EQ24_sup_061101000129.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ24_sup_061101000129.docx",
+        "size": 43621
+      },
+      {
+        "name": "coh_EQ24_sup_061101000212.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ24_sup_061101000212.docx",
+        "size": 44301
+      },
+      {
+        "name": "coh_EQ24_sup_061201020035.docx",
+        "path": "07_01_2026/ALPHA_BALDE/coh_EQ24_sup_061201020035.docx",
+        "size": 50915
+      }
+    ],
+    "Amina_DEME": [
+      {
+        "name": "coh_EQ1_sup_011301130074.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ1_sup_011301130074.docx",
+        "size": 50299
+      },
+      {
+        "name": "coh_EQ1_sup_011301210023.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ1_sup_011301210023.docx",
+        "size": 43742
+      },
+      {
+        "name": "coh_EQ1_sup_011301220028.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ1_sup_011301220028.docx",
+        "size": 44376
+      },
+      {
+        "name": "coh_EQ20_sup_112201010018.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ20_sup_112201010018.docx",
+        "size": 45372
+      },
+      {
+        "name": "coh_EQ20_sup_112201020005.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ20_sup_112201020005.docx",
+        "size": 52785
+      },
+      {
+        "name": "coh_EQ20_sup_112201020053.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ20_sup_112201020053.docx",
+        "size": 51199
+      },
+      {
+        "name": "coh_EQ20_sup_112201030005.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ20_sup_112201030005.docx",
+        "size": 47166
+      },
+      {
+        "name": "coh_EQ2_sup_011301430066.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ2_sup_011301430066.docx",
+        "size": 43396
+      },
+      {
+        "name": "coh_EQ2_sup_011301440027.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ2_sup_011301440027.docx",
+        "size": 47145
+      },
+      {
+        "name": "coh_EQ2_sup_014301110009.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ2_sup_014301110009.docx",
+        "size": 44968
+      },
+      {
+        "name": "coh_EQ2_sup_014301110048.docx",
+        "path": "07_01_2026/Amina_DEME/coh_EQ2_sup_014301110048.docx",
+        "size": 50283
+      }
+    ],
+    "Autres": [
+      {
+        "name": "coh_oulimata Diene_015202010209.docx",
+        "path": "07_01_2026/Autres/coh_oulimata Diene_015202010209.docx",
+        "size": 37244
+      }
+    ],
+    "BALDE": [
+      {
+        "name": "coh_EQ18_sup_111201030016.docx",
+        "path": "07_01_2026/BALDE/coh_EQ18_sup_111201030016.docx",
+        "size": 49831
+      },
+      {
+        "name": "coh_EQ18_sup_111201050015.docx",
+        "path": "07_01_2026/BALDE/coh_EQ18_sup_111201050015.docx",
+        "size": 45503
+      },
+      {
+        "name": "coh_EQ18_sup_111202010003.docx",
+        "path": "07_01_2026/BALDE/coh_EQ18_sup_111202010003.docx",
+        "size": 45857
+      },
+      {
+        "name": "coh_EQ18_sup_111202010059.docx",
+        "path": "07_01_2026/BALDE/coh_EQ18_sup_111202010059.docx",
+        "size": 45649
+      },
+      {
+        "name": "coh_EQ35_sup_101101000044.docx",
+        "path": "07_01_2026/BALDE/coh_EQ35_sup_101101000044.docx",
+        "size": 40261
+      },
+      {
+        "name": "coh_EQ35_sup_101201010011.docx",
+        "path": "07_01_2026/BALDE/coh_EQ35_sup_101201010011.docx",
+        "size": 42602
+      },
+      {
+        "name": "coh_EQ35_sup_101201010024.docx",
+        "path": "07_01_2026/BALDE/coh_EQ35_sup_101201010024.docx",
+        "size": 42810
+      },
+      {
+        "name": "coh_EQ35_sup_101201030011.docx",
+        "path": "07_01_2026/BALDE/coh_EQ35_sup_101201030011.docx",
+        "size": 43322
+      },
+      {
+        "name": "coh_EQ36_sup_142201040018.docx",
+        "path": "07_01_2026/BALDE/coh_EQ36_sup_142201040018.docx",
+        "size": 56171
+      },
+      {
+        "name": "coh_EQ36_sup_142201050002.docx",
+        "path": "07_01_2026/BALDE/coh_EQ36_sup_142201050002.docx",
+        "size": 51274
+      },
+      {
+        "name": "coh_EQ36_sup_142203030004.docx",
+        "path": "07_01_2026/BALDE/coh_EQ36_sup_142203030004.docx",
+        "size": 55425
+      },
+      {
+        "name": "coh_EQ36_sup_142203040005.docx",
+        "path": "07_01_2026/BALDE/coh_EQ36_sup_142203040005.docx",
+        "size": 46560
+      }
+    ],
+    "BLONDIN": [
+      {
+        "name": "coh_EQ26_sup_121101000004.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ26_sup_121101000004.docx",
+        "size": 41345
+      },
+      {
+        "name": "coh_EQ26_sup_122101000002.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ26_sup_122101000002.docx",
+        "size": 44968
+      },
+      {
+        "name": "coh_EQ26_sup_122202010020.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ26_sup_122202010020.docx",
+        "size": 50287
+      },
+      {
+        "name": "coh_EQ26_sup_122202020037.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ26_sup_122202020037.docx",
+        "size": 46257
+      },
+      {
+        "name": "coh_EQ29_sup_052101000005.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ29_sup_052101000005.docx",
+        "size": 50677
+      },
+      {
+        "name": "coh_EQ29_sup_052101000061.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ29_sup_052101000061.docx",
+        "size": 47563
+      },
+      {
+        "name": "coh_EQ29_sup_052101000138.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ29_sup_052101000138.docx",
+        "size": 47086
+      },
+      {
+        "name": "coh_EQ29_sup_052201020029.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ29_sup_052201020029.docx",
+        "size": 54581
+      },
+      {
+        "name": "coh_EQ37_sup_021201020022.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ37_sup_021201020022.docx",
+        "size": 46581
+      },
+      {
+        "name": "coh_EQ37_sup_021203040003.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ37_sup_021203040003.docx",
+        "size": 44860
+      },
+      {
+        "name": "coh_EQ37_sup_021203040017.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ37_sup_021203040017.docx",
+        "size": 45976
+      },
+      {
+        "name": "coh_EQ37_sup_142202020003.docx",
+        "path": "07_01_2026/BLONDIN/coh_EQ37_sup_142202020003.docx",
+        "size": 48009
+      }
+    ],
+    "DIAKHOU": [
       {
         "name": "coh_EQ12_sup_032101000011.docx",
         "path": "07_01_2026/DIAKHOU/coh_EQ12_sup_032101000011.docx",
-        "size": 41351
+        "size": 41353
       },
       {
         "name": "coh_EQ12_sup_032101000112.docx",
         "path": "07_01_2026/DIAKHOU/coh_EQ12_sup_032101000112.docx",
-        "size": 52326
+        "size": 52328
       },
       {
         "name": "coh_EQ12_sup_033202010010.docx",
         "path": "07_01_2026/DIAKHOU/coh_EQ12_sup_033202010010.docx",
-        "size": 59302
+        "size": 59303
       },
       {
         "name": "coh_EQ12_sup_033202030006.docx",
         "path": "07_01_2026/DIAKHOU/coh_EQ12_sup_033202030006.docx",
         "size": 56278
+      },
+      {
+        "name": "coh_EQ7_sup_013201020028.docx",
+        "path": "07_01_2026/DIAKHOU/coh_EQ7_sup_013201020028.docx",
+        "size": 46062
+      },
+      {
+        "name": "coh_EQ7_sup_013202010008.docx",
+        "path": "07_01_2026/DIAKHOU/coh_EQ7_sup_013202010008.docx",
+        "size": 43218
+      },
+      {
+        "name": "coh_EQ7_sup_013202020009.docx",
+        "path": "07_01_2026/DIAKHOU/coh_EQ7_sup_013202020009.docx",
+        "size": 39243
+      },
+      {
+        "name": "coh_EQ7_sup_072102000016.docx",
+        "path": "07_01_2026/DIAKHOU/coh_EQ7_sup_072102000016.docx",
+        "size": 47027
       }
     ],
     "DIEYNABA": [
       {
-        "name": "coh_EQ10_sup_.docx",
-        "path": "07_01_2026/DIEYNABA/coh_EQ10_sup_.docx",
-        "size": 48906
-      },
-      {
         "name": "coh_EQ10_sup_033202050134.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ10_sup_033202050134.docx",
-        "size": 47896
+        "size": 47897
       },
       {
         "name": "coh_EQ10_sup_033202050251.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ10_sup_033202050251.docx",
-        "size": 46841
+        "size": 46844
       },
       {
         "name": "coh_EQ10_sup_033202051167.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ10_sup_033202051167.docx",
-        "size": 46719
-      },
-      {
-        "name": "coh_EQ11_sup_.docx",
-        "path": "07_01_2026/DIEYNABA/coh_EQ11_sup_.docx",
-        "size": 49901
+        "size": 46721
       },
       {
         "name": "coh_EQ11_sup_031101000037.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ11_sup_031101000037.docx",
-        "size": 45415
+        "size": 45417
       },
       {
         "name": "coh_EQ11_sup_031202010011.docx",
@@ -66,12 +502,319 @@
       {
         "name": "coh_EQ11_sup_031202020034.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ11_sup_031202020034.docx",
-        "size": 44680
+        "size": 44682
       },
       {
         "name": "coh_EQ11_sup_031203030013.docx",
         "path": "07_01_2026/DIEYNABA/coh_EQ11_sup_031203030013.docx",
-        "size": 44391
+        "size": 44392
+      }
+    ],
+    "EL_MOUSTAPHA": [
+      {
+        "name": "coh_EQ17_sup_042102000023.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ17_sup_042102000023.docx",
+        "size": 43831
+      },
+      {
+        "name": "coh_EQ17_sup_042203010035.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ17_sup_042203010035.docx",
+        "size": 49852
+      },
+      {
+        "name": "coh_EQ17_sup_042203020001.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ17_sup_042203020001.docx",
+        "size": 41356
+      },
+      {
+        "name": "coh_EQ17_sup_042204030012.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ17_sup_042204030012.docx",
+        "size": 52410
+      },
+      {
+        "name": "coh_EQ23_sup_061203040013.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ23_sup_061203040013.docx",
+        "size": 45209
+      },
+      {
+        "name": "coh_EQ23_sup_091201030007.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ23_sup_091201030007.docx",
+        "size": 47861
+      },
+      {
+        "name": "coh_EQ23_sup_091203030019.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ23_sup_091203030019.docx",
+        "size": 39853
+      },
+      {
+        "name": "coh_EQ23_sup_093101000006.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ23_sup_093101000006.docx",
+        "size": 44619
+      },
+      {
+        "name": "coh_EQ27_sup_121202010010.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ27_sup_121202010010.docx",
+        "size": 41633
+      },
+      {
+        "name": "coh_EQ27_sup_121202020037.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ27_sup_121202020037.docx",
+        "size": 45323
+      },
+      {
+        "name": "coh_EQ27_sup_121202050010.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ27_sup_121202050010.docx",
+        "size": 51956
+      },
+      {
+        "name": "coh_EQ27_sup_124101000005.docx",
+        "path": "07_01_2026/EL_MOUSTAPHA/coh_EQ27_sup_124101000005.docx",
+        "size": 54248
+      }
+    ],
+    "GNING": [
+      {
+        "name": "coh_EQ25_sup_062101000016.docx",
+        "path": "07_01_2026/GNING/coh_EQ25_sup_062101000016.docx",
+        "size": 50652
+      },
+      {
+        "name": "coh_EQ25_sup_062201020008.docx",
+        "path": "07_01_2026/GNING/coh_EQ25_sup_062201020008.docx",
+        "size": 44037
+      },
+      {
+        "name": "coh_EQ25_sup_062202040013.docx",
+        "path": "07_01_2026/GNING/coh_EQ25_sup_062202040013.docx",
+        "size": 54465
+      },
+      {
+        "name": "coh_EQ25_sup_062202060002.docx",
+        "path": "07_01_2026/GNING/coh_EQ25_sup_062202060002.docx",
+        "size": 60645
+      },
+      {
+        "name": "coh_EQ25_sup_062203050014.docx",
+        "path": "07_01_2026/GNING/coh_EQ25_sup_062203050014.docx",
+        "size": 50458
+      },
+      {
+        "name": "coh_EQ32_sup_131101000032.docx",
+        "path": "07_01_2026/GNING/coh_EQ32_sup_131101000032.docx",
+        "size": 49407
+      },
+      {
+        "name": "coh_EQ32_sup_131201010010.docx",
+        "path": "07_01_2026/GNING/coh_EQ32_sup_131201010010.docx",
+        "size": 53021
+      },
+      {
+        "name": "coh_EQ32_sup_132101000007.docx",
+        "path": "07_01_2026/GNING/coh_EQ32_sup_132101000007.docx",
+        "size": 52619
+      }
+    ],
+    "JP_ADAMA": [
+      {
+        "name": "coh_EQ39_sup_023201010001.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ39_sup_023201010001.docx",
+        "size": 50054
+      },
+      {
+        "name": "coh_EQ39_sup_143101000002.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ39_sup_143101000002.docx",
+        "size": 48949
+      },
+      {
+        "name": "coh_EQ39_sup_143201010001.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ39_sup_143201010001.docx",
+        "size": 47374
+      },
+      {
+        "name": "coh_EQ8_sup_071102000075.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ8_sup_071102000075.docx",
+        "size": 50921
+      },
+      {
+        "name": "coh_EQ8_sup_071102000192.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ8_sup_071102000192.docx",
+        "size": 46252
+      },
+      {
+        "name": "coh_EQ8_sup_071201010039.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ8_sup_071201010039.docx",
+        "size": 50529
+      },
+      {
+        "name": "coh_EQ8_sup_071201020044.docx",
+        "path": "07_01_2026/JP_ADAMA/coh_EQ8_sup_071201020044.docx",
+        "size": 51337
+      }
+    ],
+    "MAMADOU_DIOP": [
+      {
+        "name": "coh_EQ28_sup_123101000010.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ28_sup_123101000010.docx",
+        "size": 48167
+      },
+      {
+        "name": "coh_EQ28_sup_123101000023.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ28_sup_123101000023.docx",
+        "size": 41766
+      },
+      {
+        "name": "coh_EQ28_sup_123201030025.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ28_sup_123201030025.docx",
+        "size": 40328
+      },
+      {
+        "name": "coh_EQ31_sup_131101000019.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ31_sup_131101000019.docx",
+        "size": 52190
+      },
+      {
+        "name": "coh_EQ31_sup_131101000060.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ31_sup_131101000060.docx",
+        "size": 48055
+      },
+      {
+        "name": "coh_EQ31_sup_133202010009.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ31_sup_133202010009.docx",
+        "size": 56827
+      },
+      {
+        "name": "coh_EQ31_sup_133202030007.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ31_sup_133202030007.docx",
+        "size": 39849
+      },
+      {
+        "name": "coh_EQ33_sup_052203020043.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ33_sup_052203020043.docx",
+        "size": 44944
+      },
+      {
+        "name": "coh_EQ33_sup_052203030011.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ33_sup_052203030011.docx",
+        "size": 45347
+      },
+      {
+        "name": "coh_EQ33_sup_102201030001.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ33_sup_102201030001.docx",
+        "size": 50488
+      },
+      {
+        "name": "coh_EQ33_sup_102201030091.docx",
+        "path": "07_01_2026/MAMADOU_DIOP/coh_EQ33_sup_102201030091.docx",
+        "size": 44177
+      }
+    ],
+    "THIMBANE": [
+      {
+        "name": "coh_EQ38_sup_022201010004.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ38_sup_022201010004.docx",
+        "size": 41448
+      },
+      {
+        "name": "coh_EQ38_sup_022201010012.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ38_sup_022201010012.docx",
+        "size": 41822
+      },
+      {
+        "name": "coh_EQ38_sup_022202020002.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ38_sup_022202020002.docx",
+        "size": 45479
+      },
+      {
+        "name": "coh_EQ38_sup_023202010003.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ38_sup_023202010003.docx",
+        "size": 44371
+      },
+      {
+        "name": "coh_EQ5_sup_012301220021.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ5_sup_012301220021.docx",
+        "size": 42760
+      },
+      {
+        "name": "coh_EQ5_sup_012301230055.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ5_sup_012301230055.docx",
+        "size": 42563
+      },
+      {
+        "name": "coh_EQ5_sup_012301240008.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ5_sup_012301240008.docx",
+        "size": 45466
+      },
+      {
+        "name": "coh_EQ5_sup_012301250024.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ5_sup_012301250024.docx",
+        "size": 39770
+      },
+      {
+        "name": "coh_EQ5_sup_012301270030.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ5_sup_012301270030.docx",
+        "size": 46419
+      },
+      {
+        "name": "coh_EQ6_sup_013301110029.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ6_sup_013301110029.docx",
+        "size": 47166
+      },
+      {
+        "name": "coh_EQ6_sup_013301110102.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ6_sup_013301110102.docx",
+        "size": 48817
+      },
+      {
+        "name": "coh_EQ6_sup_013301120044.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ6_sup_013301120044.docx",
+        "size": 50496
+      },
+      {
+        "name": "coh_EQ6_sup_013301130043.docx",
+        "path": "07_01_2026/THIMBANE/coh_EQ6_sup_013301130043.docx",
+        "size": 50463
+      }
+    ],
+    "TRAORE": [
+      {
+        "name": "coh_EQ15_sup_082101000014.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ15_sup_082101000014.docx",
+        "size": 49280
+      },
+      {
+        "name": "coh_EQ15_sup_082102000027.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ15_sup_082102000027.docx",
+        "size": 49381
+      },
+      {
+        "name": "coh_EQ15_sup_082204020015.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ15_sup_082204020015.docx",
+        "size": 53738
+      },
+      {
+        "name": "coh_EQ15_sup_082204040003.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ15_sup_082204040003.docx",
+        "size": 47479
+      },
+      {
+        "name": "coh_EQ19_sup_111202020047.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ19_sup_111202020047.docx",
+        "size": 50661
+      },
+      {
+        "name": "coh_EQ19_sup_111202030075.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ19_sup_111202030075.docx",
+        "size": 50737
+      },
+      {
+        "name": "coh_EQ19_sup_112202010023.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ19_sup_112202010023.docx",
+        "size": 56040
+      },
+      {
+        "name": "coh_EQ19_sup_112202020047.docx",
+        "path": "07_01_2026/TRAORE/coh_EQ19_sup_112202020047.docx",
+        "size": 48420
       }
     ]
   }
